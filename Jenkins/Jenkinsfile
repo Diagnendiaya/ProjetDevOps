@@ -6,9 +6,27 @@ pipeline {
             steps {
                 sh 'mvn -B -f backend/pom.xml -version'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    sh 'mvn -B -f backend/pom.xml clean test'
+                sh 'mvn -B -f backend/pom.xml clean test'
+                sh 'mvn -B -f backend/pom.xml surefire-report:report'
+                    
                 }
             }
+            post {
+        always {
+            junit testResults: 'backend/target/surefire-reports/TEST-*.xml',
+                  allowEmptyResults: true
+            publishHTML(target: [
+                reportName: 'Rapport JUnit',
+                reportDir: 'backend/target/reports',
+                reportFiles: 'surefire.html',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: true
+            ])
+        }
+    }
+
+            
         }
 /*
         stage('SonarQube Analysis') {
@@ -25,10 +43,5 @@ pipeline {
     */
     }
 
-    post {
-        always {
-            junit testResults: 'target/surefire-reports/TEST-*.xml',
-                  allowEmptyResults: true
-        }
-    }
+
 }

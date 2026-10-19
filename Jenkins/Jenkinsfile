@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh 'mvn -B -f backend/pom.xml -version'
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-                    sh 'mvn -B -f backend/pom.xml clean package'
+                    sh 'mvn -B -f backend/pom.xml clean test'
                 }
             }
         }

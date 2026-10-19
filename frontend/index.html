@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon tableau de liens — Projet DevOps</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <header><span class="eyebrow">LABORATOIRE DEVOPS · V1</span><h1>Tableau de liens</h1>
+      <p>Interface Apache HTTP → API Java sur Tomcat → données en mémoire ou PostgreSQL.</p></header>
+    <section class="card">
+      <h2 id="form-title">Ajouter un lien</h2>
+      <form id="link-form">
+        <label for="title">Nom du lien</label>
+        <input id="title" name="title" required maxlength="120" placeholder="Ex. Documentation Maven">
+        <label for="url">Adresse web</label>
+        <input id="url" name="url" type="url" required maxlength="2048" placeholder="https://maven.apache.org">
+        <div class="actions"><button id="submit" type="submit">Ajouter</button><button id="cancel" type="button" hidden>Annuler</button></div>
+      </form>
+      <p id="message" role="status" aria-live="polite"></p>
+    </section>
+    <section class="card"><h2>Mes liens <span id="count">(0)</span></h2>
+      <div id="links" class="links"><p class="muted">Chargement…</p></div>
+    </section>
+    <footer>Exercice d'apprentissage : GitHub · Jenkins · Maven · JUnit · Docker · Ansible</footer>
+  </main>
+</body>
+</html>

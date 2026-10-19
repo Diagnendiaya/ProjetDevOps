@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build et tests JUnit') {
             steps {
+                sh 'pwd'
                 sh 'mvn -B -f backend/src/pom.xml -version'
 
                 catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {

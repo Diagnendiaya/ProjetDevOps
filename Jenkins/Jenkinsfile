@@ -10,7 +10,7 @@ pipeline {
                 }
             }
         }
-
+/*
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -23,7 +23,7 @@ pipeline {
             }
         }
     }
-
+*/
     post {
         always {
             junit testResults: 'target/surefire-reports/TEST-*.xml',

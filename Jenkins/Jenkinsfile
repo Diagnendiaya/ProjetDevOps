@@ -1,1 +1,34 @@
+pipeline {
+    agent any
 
+    stages {
+        stage('Build et tests JUnit') {
+            steps {
+                sh 'mvn -version'
+
+                catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+                    sh 'mvn clean test'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarScanner'
+
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            junit testResults: 'target/surefire-reports/TEST-*.xml',
+                  allowEmptyResults: true
+        }
+    }
+}

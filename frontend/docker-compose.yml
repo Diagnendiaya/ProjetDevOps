@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+        apache:
+                build: apache/
+                image: apache:latest
+                ports:
+                        - 80:80
+                extra_hosts:
+                        - "dev-backend:192.168.213.132"
+

@@ -1,5 +1,5 @@
 FROM httpd:2.4
-COPY ../frontend/ /usr/local/apache2/htdocs/
+COPY ../{app.js,index.html,styles.css} /usr/local/apache2/htdocs/
 # Adaptation : utiliser la conf pour reverse-proxy vers le backend DEV.
 COPY apache-container.conf /usr/local/apache2/conf/extra/labo-devops.conf
 RUN sed -i 's/^#LoadModule proxy_module/LoadModule proxy_module/; s/^#LoadModule proxy_http_module/LoadModule proxy_http_module/' /usr/local/apache2/conf/httpd.conf \

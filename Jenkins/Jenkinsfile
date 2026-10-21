@@ -3,6 +3,7 @@ pipeline {
     agent any
 
     stages {
+/*        
         stage('Build et tests JUnit') {
             steps {
                 sh 'mvn -B -f backend/pom.xml -version'
@@ -30,9 +31,16 @@ pipeline {
                 }
             }
         }
+   */     
         stage('Package Back') {
             steps {
             sh 'mvn -B -f backend/pom.xml clean package'
+            sh 'cd frontend && docker compose build '
+            sh 'cd backend && docker compose build'
+            sh 'docker tag apache:latest fatoundiaya/apache:latest'
+            sh 'docker tag tomcat:latest fatoundiaya/tomcat:latest'
+            sh 'docker push fatoundiaya/apache:latest'
+            sh 'docker push fatoundiaya/tomcat:latest'
             }
         }
     }

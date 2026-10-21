@@ -1,9 +1,7 @@
 version: '3.8'
 services:
         apache:
-                build:
-                  context: .
-                  dockerfile: apache/Dockerfile
+                build: apache/Dockerfile
                 image: apache:latest
                 ports:
                         - 80:80

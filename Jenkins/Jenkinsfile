@@ -39,21 +39,24 @@ pipeline {
             sh 'cd backend && docker compose build'
             sh 'docker tag apache:latest fatoundiaya/apache:latest'
             sh 'docker tag tomcat:latest fatoundiaya/tomcat:latest'
-
+                
             withCredentials([
             usernamePassword(
                 credentialsId: 'dockerhub-credentials',
                 usernameVariable: 'DOCKERHUB_USER',
                 passwordVariable: 'DOCKERHUB_TOKEN'
             )
-        ])
-                sh '''
+        ]) {
+            sh '''
                 echo "$DOCKERHUB_TOKEN" | docker login \
                     -u "$DOCKERHUB_USER" --password-stdin
 
                 docker push fatoundiaya/apache:latest
                 docker push fatoundiaya/tomcat:latest
             '''
+        }
+
+
             }
         }
     }

@@ -12,11 +12,20 @@ pipeline {
                 	usernameVariable: 'DOCKERHUB_USER',
                 	passwordVariable: 'DOCKERHUB_TOKEN'
             		)
+					sshUserPrivateKey(
+                	credentialsId: 'ansible-ssh',
+                	keyFileVariable: 'SSH_KEY',
+                	usernameVariable: 'SSH_USER'
+            		)
         		]) {			
 					sh '''
                 	set +x
                 	cd ansible
-					ansible-playbook -i inventory.ini playbook.yml -k
+					ansible-playbook \
+                  -i ansible/inventory.ini \
+                  ansible/playbook.yml \
+                  --private-key "$SSH_KEY" \
+                  -u "$SSH_USER"
             		'''
         			}
 

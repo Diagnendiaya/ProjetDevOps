@@ -10,7 +10,7 @@ pipeline {
             		usernamePassword(
                 	credentialsId: 'dockerhub-credentials',
                 	usernameVariable: 'DOCKERHUB_USER',
-                	passwordVariable: 'DOCKERHUB_TOKEN'
+                	passwordVariable: 'DOCKERHUB_TOKEN',
             		)
 					sshUserPrivateKey(
                 	credentialsId: 'ansible-ssh',
@@ -22,8 +22,8 @@ pipeline {
                 	set +x
                 	cd ansible
 					ansible-playbook \
-                  -i ansible/inventory.ini \
-                  ansible/playbook.yml \
+                  -i inventory.ini \
+                  playbook.yml \
                   --private-key "$SSH_KEY" \
                   -u "$SSH_USER"
             		'''

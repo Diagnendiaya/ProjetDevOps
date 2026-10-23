@@ -1,7 +1,9 @@
 version: '3.8'
 services:
         tomcat:
-                build: .
+                build: 
+                  context: .
+                  dockerfile: tomcat/Dockerfile 
                 image: tomcat:latest
                 ports:
                         - 8083:8080

@@ -1,1 +1,30 @@
-l
+
+pipeline {
+    agent any
+
+    stages {  
+
+      stage('Deploy with Ansible') {
+    		steps {
+        		withCredentials([
+            		usernamePassword(
+                	credentialsId: 'dockerhub-credentials',
+                	usernameVariable: 'DOCKERHUB_USER',
+                	passwordVariable: 'DOCKERHUB_TOKEN'
+            		)
+        		]) {			
+					sh '''
+                	set +x
+                	cd ansible
+					ansible-playbook -i inventory.ini playbook.yml
+            		'''
+        			}
+
+    		}
+      
+
+      
+
+    }
+}
+}

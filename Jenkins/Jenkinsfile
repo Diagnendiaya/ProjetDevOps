@@ -6,26 +6,26 @@ pipeline {
 /*        
         stage('Build et tests JUnit') {
             steps {
-                sh 'mvn -B -f backend/pom.xml -version'
+                sh 'mvn -B -f backend/tomcat/pom.xml -version'
 
                 catchError(
                     buildResult: 'UNSTABLE',
                     stageResult: 'FAILURE'
                 ) {
-                    sh 'mvn -B -f backend/pom.xml clean test'
-                    sh 'mvn -B -f backend/pom.xml surefire-report:report'
+                    sh 'mvn -B -f backend/tomcat/pom.xml clean test'
+                    sh 'mvn -B -f backend/tomcat/pom.xml surefire-report:report'
                 }
             }
 
             post {
                 always {
                     junit(
-                        testResults: 'backend/target/surefire-reports/TEST-*.xml',
+                        testResults: 'backend/tomcat/target/surefire-reports/TEST-*.xml',
                         allowEmptyResults: true
                     )
 
                     archiveArtifacts(
-                        artifacts: 'backend/target/reports/surefire.html',
+                        artifacts: 'backend/tomcat/target/reports/surefire.html',
                         allowEmptyArchive: true
                     )
                 }
@@ -34,7 +34,7 @@ pipeline {
    */     
         stage('Package Back') {
             steps {
-            sh 'mvn -B -f backend/pom.xml clean package'
+            sh 'mvn -B -f backend/tomcat/pom.xml clean package'
             sh 'cd frontend && docker compose build '
             sh 'cd backend && docker compose build'
             sh 'docker tag apache:latest fatoundiaya/apache:latest'

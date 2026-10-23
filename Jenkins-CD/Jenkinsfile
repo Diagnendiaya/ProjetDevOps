@@ -10,8 +10,8 @@ pipeline {
             		usernamePassword(
                 	credentialsId: 'dockerhub-credentials',
                 	usernameVariable: 'DOCKERHUB_USER',
-                	passwordVariable: 'DOCKERHUB_TOKEN',
-            		)
+                	passwordVariable: 'DOCKERHUB_TOKEN'
+            		),
 					sshUserPrivateKey(
                 	credentialsId: 'ansible-ssh',
                 	keyFileVariable: 'SSH_KEY',

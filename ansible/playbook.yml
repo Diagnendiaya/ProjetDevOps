@@ -8,7 +8,7 @@
       community.docker.docker_login:
         username: "{{ lookup('ansible.builtin.env', 'DOCKERHUB_USER') }}"
         password: "{{ lookup('ansible.builtin.env', 'DOCKERHUB_TOKEN') }}"
-      no_log: true
+      #no_log: true
 
     - name: Démarrer le conteneur avec l'image voulue
       community.docker.docker_container:

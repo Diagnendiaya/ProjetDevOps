@@ -13,7 +13,7 @@
     - name: Démarrer le conteneur avec l'image voulue
       community.docker.docker_container:
         name: apache
-        image: fatoundiaya/apache:latest
+        image: fatoundiaya/apache
         state: started
         published_ports:
           - "80:8080"

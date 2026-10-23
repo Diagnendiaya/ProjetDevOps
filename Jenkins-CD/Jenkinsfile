@@ -16,7 +16,7 @@ pipeline {
 					sh '''
                 	set +x
                 	cd ansible
-					ansible-playbook -i inventory.ini playbook.yml
+					ansible-playbook -i inventory.ini playbook.yml -k
             		'''
         			}
 
